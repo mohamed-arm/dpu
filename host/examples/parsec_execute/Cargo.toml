@@ -1,0 +1,13 @@
+[package]
+authors = ["The Veracruz Development Team"]
+description = "The test program to demonstrate provisioning parsec-client and executing remotely with DPU runtime manager"
+name = "parsec_execute"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.14"
+env_logger = { version = "0.10.0" }
+log = "0.4.13"
+transport = { path = "../../../common/transport" }
+utils = { path = "../../../common/utils" }
