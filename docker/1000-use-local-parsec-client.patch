@@ -1,0 +1,13 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 488b688..a8cec81 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -13,7 +13,7 @@ documentation = "https://docs.rs/crate/parsec-tool"
+ rust-version = "1.66.0"
+ 
+ [dependencies]
+-parsec-client = "0.16.0"
++parsec-client = {path = "../parsec-client/" }
+ structopt = { version = "0.3.17", default-features = false }
+ thiserror = "1.0.20"
+ env_logger = "0.10.0"
