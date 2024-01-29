@@ -15,3 +15,21 @@ cargo build
   ```
   RUST_LOG=info cargo run --bin attestation
   ```
+
+## Run Parsec Example
+
+```
+cd docker 
+make build
+make exec
+```
+
+in docker run the script.sh 
+
+```
+cd /work;
+
+./script.sh
+
+RUST_LOG=info cargo run --bin parsec_execute
+```
