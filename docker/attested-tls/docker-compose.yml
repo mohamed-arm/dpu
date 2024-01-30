@@ -1,0 +1,86 @@
+version: "2.2"
+
+services:
+  vts:
+    image: "veraison/vts"
+    volumes:
+      - ./logs:/opt/veraison/logs
+    networks:
+      veraison:
+        ipv4_address: ${VTS_VERAISON_ADDR}
+    container_name: vts
+
+  vfe:
+    image: "veraison/verification"
+    volumes:
+      - ./logs:/opt/veraison/logs
+    networks:
+      veraison:
+        ipv4_address: ${VFE_VERAISON_ADDR}
+      demo:
+        ipv4_address: ${VFE_DEMO_ADDR}
+    extra_hosts:
+      - "vts-service:${VTS_VERAISON_ADDR}"
+    depends_on:
+      vts:
+        condition: service_started
+    container_name: vfe
+
+  pfe:
+    image: "veraison/provisioning"
+    volumes:
+      - ./logs:/opt/veraison/logs
+    networks:
+      veraison:
+        ipv4_address: ${PFE_VERAISON_ADDR}
+      demo:
+        ipv4_address: ${PFE_DEMO_ADDR}
+    extra_hosts:
+      - "vts-service:${VTS_VERAISON_ADDR}"
+    depends_on:
+      vts:
+        condition: service_started
+    container_name: pfe
+
+  relying-party:
+    build:
+      context: relying-party
+      dockerfile: relying-party.Dockerfile
+    stdin_open: true
+    tty: true
+    networks:
+      demo:
+        ipv4_address: ${RP_DEMO_ADDR}
+    extra_hosts:
+      - "vfe:${VFE_DEMO_ADDR}"
+    depends_on:
+      vfe:
+        condition: service_started
+    container_name: relying-party
+
+  attester:
+    build:
+      context: attester
+      dockerfile: attester.Dockerfile
+    stdin_open: true
+    tty: true
+    networks:
+      demo:
+        ipv4_address: ${ATTESTER_DEMO_ADDR}
+    extra_hosts:
+      - "pfe:${PFE_DEMO_ADDR}"
+      - "relying-party:${RP_DEMO_ADDR}"
+    depends_on:
+      pfe:
+        condition: service_started
+    container_name: attester
+
+networks:
+  veraison:
+    ipam:
+      config:
+        - subnet: "${VERAISON_SUBNET}"
+  demo:
+    ipam:
+      config:
+        - subnet: "${DEMO_SUBNET}"

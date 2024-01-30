@@ -1,0 +1,69 @@
+INFO	initializing stores
+INFO	ta-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/ta-store.sql", "table": "kvstore"}
+INFO	en-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/en-store.sql", "table": "kvstore"}
+INFO	po-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/po-store.sql", "table": "kvstore"}
+INFO	initializing policy manager
+INFO	policy	agent created	{"agent": "opa"}
+INFO	loading attestation schemes
+INFO	Evidence media types:
+INFO		application/vnd.parallaxsecond.key-attestation.cca
+INFO		application/vnd.parallaxsecond.key-attestation.tpm
+INFO		application/psa-attestation-token
+INFO		application/pem-certificate-chain
+INFO		application/vnd.enacttrust.tpm-evidence
+INFO		application/eat-collection; profile=http://arm.com/CCA-SSD/1.0.0
+INFO		application/eat-cwt; profile=http://arm.com/psa/2.0.0
+INFO	Endorsement media types:
+INFO		application/corim-unsigned+cbor; profile=http://arm.com/cca/ssd/1
+INFO		application/corim-unsigned+cbor; profile=http://enacttrust.com/veraison/1.0.0
+INFO		application/corim-unsigned+cbor; profile="tag:github.com/parallaxsecond,2023-03-03:cca"
+INFO		application/corim-unsigned+cbor; profile="tag:github.com/parallaxsecond,2023-03-03:tpm"
+INFO		application/corim-unsigned+cbor; profile=http://arm.com/psa/iot/1
+INFO	loading EAR signer
+INFO	initializing service
+INFO	vts	listening for GRPC requests	{"address": ":50051"}
+INFO	vts	added trust anchor	{"keys": ["PARSEC_TPM://0/AdKHhhfffRii/TGzCo21H0t6Ry2SaAjWRncW2+1nMSk7"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	get attestation	{"media-type": "application/vnd.parallaxsecond.key-attestation.tpm", "tenant-id": "0"}
+INFO	vts	evaluated attestation result	{"attestation-result": {"ear.verifier-id":{"build":"N/A","developer":"Veraison Project"},"eat_nonce":"-nigbJ7MXWY=","eat_profile":"tag:github.com,2023:veraison/ear","iat":1704991192,"submods":{"PARSEC_TPM":{"ear.appraisal-policy-id":"policy:PARSEC_TPM","ear.status":"affirming","ear.trustworthiness-vector":{"configuration":0,"executables":2,"file-system":0,"hardware":2,"instance-identity":2,"runtime-opaque":0,"sourced-data":0,"storage-opaque":0},"ear.veraison.annotated-evidence":{"kat":{"certInfo":"/1RDR4AXACIAC2hewtuqMmX6BsXYTQUU3jIcdOtC1dsDop0ixGF28pHxAAgAAQIDBAUGBwAAAAAABnI5LPiWIor8q6kB30qewCnEsPIAIgALrNu1e6VErFTuRPoE6sJ7770GkJjh6FHwuNqZLNgVniUAIgALmXlYDG4jb63Mjg6CAlViF+WUYT/J4uPLIxvkXwgIMUw=","kid":"AdKHhhfffRii/TGzCo21H0t6Ry2SaAjWRncW2+1nMSk7","pubArea":"ACMACwAEAHIAAAAQABgACwADABAAIPApkPteSqzUf5BNbkoFaZqHZvXMxQbahqUlPv7TnGykACBtRwmQ7k9QCjbWVAFNgsYd1WHn3aWjzg/LLz4AlUK+Rg==","sig":"ABgACwAgHcBV1d/KvogxRoqsw1f73VOp7W1K+GwzZJYujnnmusUAIOVy9x2oSR2xQDWWQ/QgHybQhAg+hoIugwYRCEpXnyb3","tpmVer":"2.0"},"pat":{"attestInfo":"/1RDR4AYACIAC2hewtuqMmX6BsXYTQUU3jIcdOtC1dsDop0ixGF28pHxAAgAAQIDBAUGBwAAAAAABnI6LPiWIor8q6kB30qewCnEsPIAAAABAAsDBwAAACAuqauRmNFjgAdADNLDvvHMdFuGS3YBGg4bxSGArGRS1A==","kid":"AdKHhhfffRii/TGzCo21H0t6Ry2SaAjWRncW2+1nMSk7","sig":"ABgACwAgE3xrQ7lpLyhRCawfCUp1djwXQKF62vbm3JG/h400EcQAIChhRCXng8bkYCXbVweebvJSi0HozlKHhBvd5JxvWg3N","tpmVer":"2.0"}},"ear.veraison.key-attestation":{"akpub":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8CmQ-15KrNR_kE1uSgVpmodm9czFBtqGpSU-_tOcbKRtRwmQ7k9QCjbWVAFNgsYd1WHn3aWjzg_LLz4AlUK-Rg"}}}}}
+INFO	vts	get attestation	{"media-type": "application/vnd.parallaxsecond.key-attestation.tpm", "tenant-id": "0"}
+INFO	vts	evaluated attestation result	{"attestation-result": {"ear.verifier-id":{"build":"N/A","developer":"Veraison Project"},"eat_nonce":"Y-hFyzG2piI=","eat_profile":"tag:github.com,2023:veraison/ear","iat":1704991199,"submods":{"PARSEC_TPM":{"ear.appraisal-policy-id":"policy:PARSEC_TPM","ear.status":"affirming","ear.trustworthiness-vector":{"configuration":0,"executables":2,"file-system":0,"hardware":2,"instance-identity":2,"runtime-opaque":0,"sourced-data":0,"storage-opaque":0},"ear.veraison.annotated-evidence":{"kat":{"certInfo":"/1RDR4AXACIAC2hewtuqMmX6BsXYTQUU3jIcdOtC1dsDop0ixGF28pHxAAgAAQIDBAUGBwAAAAAABo8WLPiWIor8q6kB30qewCnEsPIAIgALV0fySNg1kNuEEfOQpTV+Vnoref7xCuJjLlEYMDWAXgIAIgALdJzr1IULBl+5ml3SkhPsC7djGF/RW94pqw8//xxhr9I=","kid":"AdKHhhfffRii/TGzCo21H0t6Ry2SaAjWRncW2+1nMSk7","pubArea":"ACMACwAEAHIAAAAQABgACwADABAAIMZFM0TiVHtTlK4UGR9iQtIESi6CLYLcnrPQPYVNbz7VACBsdX/rli49Farj/IhVfOXUoZN5hK0x3yLRUTY57pspMQ==","sig":"ABgACwAgKoKVxYcvGSjP+bVIWGysAqlpDpgruo+FPNuUNydfhccAIO1KvxgD/6QTi3mRhfTVOoaPe5KN9hvAyMGqJIcmePTB","tpmVer":"2.0"},"pat":{"attestInfo":"/1RDR4AYACIAC2hewtuqMmX6BsXYTQUU3jIcdOtC1dsDop0ixGF28pHxAAgAAQIDBAUGBwAAAAAABo8YLPiWIor8q6kB30qewCnEsPIAAAABAAsDBwAAACAuqauRmNFjgAdADNLDvvHMdFuGS3YBGg4bxSGArGRS1A==","kid":"AdKHhhfffRii/TGzCo21H0t6Ry2SaAjWRncW2+1nMSk7","sig":"ABgACwAgGqVfrBZ76x1A4L9Zb5YXTU2KRO3PToYzehUpxyWiIfkAIEbs3smN+/a00Zfik3k8LzoPo9V3jHzph1ACNCNDgtsw","tpmVer":"2.0"}},"ear.veraison.key-attestation":{"akpub":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExkUzROJUe1OUrhQZH2JC0gRKLoItgtyes9A9hU1vPtVsdX_rli49Farj_IhVfOXUoZN5hK0x3yLRUTY57pspMQ"}}}}}
+INFO	terminated received, exiting
+INFO	stopping service
+INFO	bye!
+INFO	initializing stores
+INFO	ta-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/ta-store.sql", "table": "kvstore"}
+INFO	en-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/en-store.sql", "table": "kvstore"}
+INFO	po-store	store opened	{"driver": "sqlite3", "datasource": "stores/vts/po-store.sql", "table": "kvstore"}
+INFO	initializing policy manager
+INFO	policy	agent created	{"agent": "opa"}
+INFO	loading attestation schemes
+INFO	Evidence media types:
+INFO		application/eat-collection; profile=http://arm.com/CCA-SSD/1.0.0
+INFO		application/vnd.parallaxsecond.key-attestation.tpm
+INFO		application/psa-attestation-token
+INFO		application/eat-cwt; profile=http://arm.com/psa/2.0.0
+INFO		application/vnd.parallaxsecond.key-attestation.cca
+INFO		application/pem-certificate-chain
+INFO		application/vnd.enacttrust.tpm-evidence
+INFO	Endorsement media types:
+INFO		application/corim-unsigned+cbor; profile=http://arm.com/cca/ssd/1
+INFO		application/corim-unsigned+cbor; profile=http://arm.com/psa/iot/1
+INFO		application/corim-unsigned+cbor; profile=http://enacttrust.com/veraison/1.0.0
+INFO		application/corim-unsigned+cbor; profile="tag:github.com/parallaxsecond,2023-03-03:cca"
+INFO		application/corim-unsigned+cbor; profile="tag:github.com/parallaxsecond,2023-03-03:tpm"
+INFO	loading EAR signer
+INFO	initializing service
+INFO	vts	listening for GRPC requests	{"address": ":50051"}
+INFO	vts	added trust anchor	{"keys": ["PARSEC_TPM://0/AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	added reference values	{"keys": ["PARSEC_TPM://0/d10e4bd6-7e02-4d2c-bf1a-69ae22680478"]}
+INFO	vts	get attestation	{"media-type": "application/vnd.parallaxsecond.key-attestation.tpm", "tenant-id": "0"}
+INFO	vts	evaluated attestation result	{"attestation-result": {"ear.verifier-id":{"build":"N/A","developer":"Veraison Project"},"eat_nonce":"myvUipXp9-E=","eat_profile":"tag:github.com,2023:veraison/ear","iat":1705425814,"submods":{"PARSEC_TPM":{"ear.appraisal-policy-id":"policy:PARSEC_TPM","ear.status":"affirming","ear.trustworthiness-vector":{"configuration":0,"executables":2,"file-system":0,"hardware":2,"instance-identity":2,"runtime-opaque":0,"sourced-data":0,"storage-opaque":0},"ear.veraison.annotated-evidence":{"kat":{"certInfo":"/1RDR4AXACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASMoqqZ188O+M3ycBB/zq7zX8h8QAIgAL6p43LI97Av0RW5GS66NBrwytQMwJ9e8aFWktiAYP9eEAIgALIRtmMDP9bldqTesJqW/8f8lguAQL4y/7tsMowHsnv2A=","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","pubArea":"ACMACwAEAHIAAAAQABgACwADABAAIEPbL5hkoXN+NSY+HYWk+ANBA2dVcCitGWY09zCjey7jACCHWf63urvY1KdEdey7qV1mlBBVmwkaGQtuP2YaHwhovw==","sig":"ABgACwAgA7H03M9JKIAOqEN/dYvvTHn47STHMkZL8uw9lWj4GAUAIKJ14Jzrctwmggj58xKmBLvaaHphpZSrIu8fIEgd/SIT","tpmVer":"2.0"},"pat":{"attestInfo":"/1RDR4AYACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASMqTqZ188O+M3ycBB/zq7zX8h8QAAAABAAsDBwAAACAuqauRmNFjgAdADNLDvvHMdFuGS3YBGg4bxSGArGRS1A==","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","sig":"ABgACwAg0C1xJwfh+V6e1xogPQVL+WlLjdxkD+RKxhGaybFtzUkAILZnjW3Ygf4kJYqtDzm1PxQIwF242KDea/zULaNrMudE","tpmVer":"2.0"}},"ear.veraison.key-attestation":{"akpub":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEQ9svmGShc341Jj4dhaT4A0EDZ1VwKK0ZZjT3MKN7LuOHWf63urvY1KdEdey7qV1mlBBVmwkaGQtuP2YaHwhovw"}}}}}
+INFO	vts	get attestation	{"media-type": "application/vnd.parallaxsecond.key-attestation.tpm", "tenant-id": "0"}
+INFO	vts	evaluated attestation result	{"attestation-result": {"ear.verifier-id":{"build":"N/A","developer":"Veraison Project"},"eat_nonce":"QVJ0g3KR14w=","eat_profile":"tag:github.com,2023:veraison/ear","iat":1705425874,"submods":{"PARSEC_TPM":{"ear.appraisal-policy-id":"policy:PARSEC_TPM","ear.status":"affirming","ear.trustworthiness-vector":{"configuration":0,"executables":2,"file-system":0,"hardware":2,"instance-identity":2,"runtime-opaque":0,"sourced-data":0,"storage-opaque":0},"ear.veraison.annotated-evidence":{"kat":{"certInfo":"/1RDR4AXACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASbZNqZ188O+M3ycBB/zq7zX8h8QAIgALjp+mJLAxECDBEvkqC9pOW9Y7czI54dXg2gz57N89rD0AIgAL0SsDEx2p3+nZ/OUIaU0NPOax+s3u8MyZF6q4rQ0vlUo=","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","pubArea":"ACMACwAEAHIAAAAQABgACwADABAAINOcE/iRAFsePoycKgGmuvMYt3dvBU8MTiuA4hED1OoUACAw8gXhjPCV6XjmrvQihzyiUi1ukQaCjRWKH/eC/2V8Hw==","sig":"ABgACwAgMzI0zRkAzfbYweHLUt3zyl8jS+6AHyNB+LAx29U8bD8AIFEegVpbNgL03Y7PnfrvFdfurPJnzByh62u0i1jHtPNk","tpmVer":"2.0"},"pat":{"attestInfo":"/1RDR4AYACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASbZPqZ188O+M3ycBB/zq7zX8h8QAAAABAAsDBwAAACAuqauRmNFjgAdADNLDvvHMdFuGS3YBGg4bxSGArGRS1A==","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","sig":"ABgACwAgtsEpbeYxTT+/t+rjQzjRwZN2H+2XYWKaX7LGkqKhNtIAINTJgXlI5P3exmXl1glKyGAy7tQR+F5ajoHM2xbctoDf","tpmVer":"2.0"}},"ear.veraison.key-attestation":{"akpub":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE05wT-JEAWx4-jJwqAaa68xi3d28FTwxOK4DiEQPU6hQw8gXhjPCV6XjmrvQihzyiUi1ukQaCjRWKH_eC_2V8Hw"}}}}}
+INFO	vts	get attestation	{"media-type": "application/vnd.parallaxsecond.key-attestation.tpm", "tenant-id": "0"}
+INFO	vts	evaluated attestation result	{"attestation-result": {"ear.verifier-id":{"build":"N/A","developer":"Veraison Project"},"eat_nonce":"wO3R3-erSP4=","eat_profile":"tag:github.com,2023:veraison/ear","iat":1705425929,"submods":{"PARSEC_TPM":{"ear.appraisal-policy-id":"policy:PARSEC_TPM","ear.status":"affirming","ear.trustworthiness-vector":{"configuration":0,"executables":2,"file-system":0,"hardware":2,"instance-identity":2,"runtime-opaque":0,"sourced-data":0,"storage-opaque":0},"ear.veraison.annotated-evidence":{"kat":{"certInfo":"/1RDR4AXACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASo1/qZ188O+M3ycBB/zq7zX8h8QAIgALZRz/HWV4v/ZLbk8OhzQFWpoHn0v/jhWFc3XwHSjHCqoAIgAL59mA/cM08O2H4LnBhIXnltNbZ84zJy4TNW6jUoKEVTI=","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","pubArea":"ACMACwAEAHIAAAAQABgACwADABAAIGQ1Ey+30QknYaPgA/Fuv0J1fC/WEiUyYEo0F6zwKG20ACB7jE0/fscGAKLPWlIzne3pe5C2+hoU5LbJRfpFqC4aXA==","sig":"ABgACwAgyeJlI/LndyWTbn7yRvb7ZUETRWxm47Gk4rGblZBuc88AIGiEWxPPKKao99FZyFoVTv4aeDV9iKNRUXob4yDNTz7t","tpmVer":"2.0"},"pat":{"attestInfo":"/1RDR4AYACIAC7ANLjYZ653QEtgJw7oyMAl2Md6GexDVK7F3WKwCnJa2AAgAAQIDBAUGBwAAAAAASo2AqZ188O+M3ycBB/zq7zX8h8QAAAABAAsDBwAAACAuqauRmNFjgAdADNLDvvHMdFuGS3YBGg4bxSGArGRS1A==","kid":"AcWmkVnFUTjK2vD0+7NS+WzYS6HEJht3ELQ0Me0CHkA3","sig":"ABgACwAg0N8LGpOHe/Hs6XYZ3Fk+/GXwhP+e6b1SKp6R5LymnYsAIMv/H41k9tcD6xHc/GphRmv42a5TOx0lYk/oUvqIa1ac","tpmVer":"2.0"}},"ear.veraison.key-attestation":{"akpub":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZDUTL7fRCSdho-AD8W6_QnV8L9YSJTJgSjQXrPAobbR7jE0_fscGAKLPWlIzne3pe5C2-hoU5LbJRfpFqC4aXA"}}}}}

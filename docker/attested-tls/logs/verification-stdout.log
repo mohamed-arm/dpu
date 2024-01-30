@@ -1,0 +1,90 @@
+INFO	Initializing Verification Service	{"version": "commit-b50b67d"}
+INFO	initializing VTS client
+INFO	vts connection established	{"server-version": "commit-b50b67d"}
+INFO	initializing verifier
+INFO	initializing verification API service	{"address": "0.0.0.0:8080"}
+INFO	gin	[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+INFO	gin	 - using env:	export GIN_MODE=release
+INFO	gin	 - using code:	gin.SetMode(gin.ReleaseMode)
+INFO	gin	
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /challenge-response/v1/newSession --> github.com/veraison/services/verification/api.IHandler.NewChallengeResponse-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.SubmitEvidence-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.GetSession-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] DELETE /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.DelSession-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /.well-known/veraison/verification --> github.com/veraison/services/verification/api.IHandler.GetWellKnownVerificationInfo-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+INFO	gin	Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+INFO	gin	
+INFO	gin	[GIN-debug] Listening and serving HTTP on 0.0.0.0:8080
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:52 | 200 |    1.465659ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:52 | 201 |     670.567µs |     172.30.0.12 | POST     "/challenge-response/v1/newSession?nonceSize=8"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:52 | 200 |    1.205708ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:52 | 200 |   40.794082ms |     172.30.0.12 | POST     "/challenge-response/v1/session/0b16e993-b0a0-11ee-b20b-633538376661"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:59 | 200 |     926.237µs |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:59 | 201 |     469.179µs |     172.30.0.12 | POST     "/challenge-response/v1/newSession?nonceSize=8"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:59 | 200 |     1.01452ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:39:59 | 200 |    7.887677ms |     172.30.0.12 | POST     "/challenge-response/v1/session/0f4b6998-b0a0-11ee-b20b-633538376661"
+INFO	gin	
+INFO	Initializing Verification Service	{"version": "commit-b50b67d"}
+INFO	initializing VTS client
+INFO	vts connection established	{"server-version": "commit-b50b67d"}
+INFO	initializing verifier
+INFO	initializing verification API service	{"address": "0.0.0.0:8080"}
+INFO	gin	[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+INFO	gin	 - using env:	export GIN_MODE=release
+INFO	gin	 - using code:	gin.SetMode(gin.ReleaseMode)
+INFO	gin	
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /challenge-response/v1/newSession --> github.com/veraison/services/verification/api.IHandler.NewChallengeResponse-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.SubmitEvidence-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.GetSession-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] DELETE /challenge-response/v1/session/:id --> github.com/veraison/services/verification/api.IHandler.DelSession-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /.well-known/veraison/verification --> github.com/veraison/services/verification/api.IHandler.GetWellKnownVerificationInfo-fm (3 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+INFO	gin	Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+INFO	gin	
+INFO	gin	[GIN-debug] Listening and serving HTTP on 0.0.0.0:8080
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:23:34 | 200 |   25.059104ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:23:34 | 201 |   31.573905ms |     172.30.0.12 | POST     "/challenge-response/v1/newSession?nonceSize=8"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:23:34 | 200 |    1.162906ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:23:34 | 200 |  148.106833ms |     172.30.0.12 | POST     "/challenge-response/v1/session/fa33e435-b493-11ee-bc90-633538376661"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:24:34 | 200 |    1.188708ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:24:34 | 201 |     477.679µs |     172.30.0.12 | POST     "/challenge-response/v1/newSession?nonceSize=8"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:24:34 | 200 |    1.185148ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:24:34 | 200 |    4.342114ms |     172.30.0.12 | POST     "/challenge-response/v1/session/1e20eb1a-b494-11ee-bc90-633538376661"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:25:29 | 200 |    1.049702ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:25:29 | 201 |     477.879µs |     172.30.0.12 | POST     "/challenge-response/v1/newSession?nonceSize=8"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:25:29 | 200 |    1.023481ms |     172.30.0.12 | GET      "/.well-known/veraison/verification"
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 17:25:29 | 200 |    4.621865ms |     172.30.0.12 | POST     "/challenge-response/v1/session/3ef540ed-b494-11ee-bc90-633538376661"
+INFO	gin	

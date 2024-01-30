@@ -1,0 +1,44 @@
+INFO	Initializing Provisioning Service	{"version": "commit-b50b67d"}
+INFO	initializing VTS client
+INFO	vts connection established	{"server-version": "commit-b50b67d"}
+INFO	initializing provisioner
+INFO	initializing provisioning API service	{"address": "0.0.0.0:8888"}
+INFO	gin	[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+INFO	gin	 - using env:	export GIN_MODE=release
+INFO	gin	 - using code:	gin.SetMode(gin.ReleaseMode)
+INFO	gin	
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /endorsement-provisioning/v1/submit --> github.com/veraison/services/provisioning/api.IHandler.Submit-fm (4 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /.well-known/veraison/provisioning --> github.com/veraison/services/provisioning/api.IHandler.GetWellKnownProvisioningInfo-fm (4 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+INFO	gin	Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+INFO	gin	
+INFO	gin	[GIN-debug] Listening and serving HTTP on 0.0.0.0:8888
+INFO	gin	
+INFO	gin	[GIN] 2024/01/11 - 16:37:08 | 200 |  1.309732792s |     172.30.0.13 | POST     "/endorsement-provisioning/v1/submit"
+INFO	gin	
+INFO	terminatedreceived, exiting
+INFO	bye!
+INFO	Initializing Provisioning Service	{"version": "commit-b50b67d"}
+INFO	initializing VTS client
+INFO	vts connection established	{"server-version": "commit-b50b67d"}
+INFO	initializing provisioner
+INFO	initializing provisioning API service	{"address": "0.0.0.0:8888"}
+INFO	gin	[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+INFO	gin	 - using env:	export GIN_MODE=release
+INFO	gin	 - using code:	gin.SetMode(gin.ReleaseMode)
+INFO	gin	
+INFO	gin	
+INFO	gin	[GIN-debug] POST   /endorsement-provisioning/v1/submit --> github.com/veraison/services/provisioning/api.IHandler.Submit-fm (4 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] GET    /.well-known/veraison/provisioning --> github.com/veraison/services/provisioning/api.IHandler.GetWellKnownProvisioningInfo-fm (4 handlers)
+INFO	gin	
+INFO	gin	[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+INFO	gin	Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+INFO	gin	
+INFO	gin	[GIN-debug] Listening and serving HTTP on 0.0.0.0:8888
+INFO	gin	
+INFO	gin	[GIN] 2024/01/16 - 16:13:26 | 200 |  373.394966ms |     172.30.0.13 | POST     "/endorsement-provisioning/v1/submit"
+INFO	gin	
