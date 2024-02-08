@@ -51,40 +51,5 @@ RUN cd ctoken \
 	&& install -m 644  inc/ctoken/ctoken* /usr/local/include/ctoken \
 	&& install -m 644 libctoken.a /usr/local/lib
 
-# Build and install the C client to Veraison, which is a wrapper of the Rust client
-RUN git clone https://github.com/veraison/rust-apiclient.git
-RUN cd rust-apiclient \
-    && cargo build \
-    && mkdir -p /usr/local/include/veraison \
-    && install -m 644 c-wrapper/veraison_client_wrapper.h /usr/local/include/veraison \
-    && install -m 644 ./target/debug/libveraison_apiclient_ffi.a /usr/local/lib
-
-# Build and install libjwt/jansson, required by c-ear library
-RUN git clone --depth 1 --branch v1.15.2  https://github.com/benmcollins/libjwt.git
-RUN cd libjwt \
-    && mkdir _build \
-    && cd _build \
-    && cmake -DUSE_INSTALLED_JANSSON=OFF -DJANSSON_BUILD_DOCS=OFF .. \
-    && cmake --build . --target install
-
-# Build and install the C EAR library (Entity Attestation Results)
-RUN git clone https://github.com/veraison/c-ear.git
-RUN cd c-ear \
-    && mkdir _build \
-    && cd _build \
-    && cmake .. \
-    && cmake --build . --target install
-
-# Build relying party MbedTLS
-RUN cd mbedtls \
-	&& make clean \
-	&& git reset --hard HEAD \
-	&& git remote add paulh https://github.com/paulhowardarm/mbedtls.git \
-	&& git fetch paulh ph-tls-attestation  \
-	&& git checkout ph-tls-attestation \
-	&& make CFLAGS="-DCTOKEN_LABEL_CNF=8 -DCTOKEN_TEMP_LABEL_KAK_PUB=2500" LDFLAGS="-lctoken -lt_cose -lqcbor -lveraison_apiclient_ffi -lear -ljwt -ljansson -lm -lssl -lcrypto -lgcc_s -lutil -lrt -lpthread -ldl -lc" \
-	&& install -m 755 programs/ssl/ssl_server2 /usr/local/bin
 
 WORKDIR /root/
-
-CMD ssl_server2 attestation_callback=1 force_version=tls13 auth_mode=required server_port=4433 veraison_endpoint="http://vfe:8080"

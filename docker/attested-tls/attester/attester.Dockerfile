@@ -1,46 +1,3 @@
-from ${DOCKER_ARCH}golang:1.19 AS go_builder
-
-RUN apt-get update && \
-    apt-get install -y wget curl vim git && \
-    apt-get clean
-
-RUN set -eux; \
-    echo "iteration 0"; \
-    git clone https://github.com/veracruz-project/proxy_attestation_server.git --branch main --tags ; \
-    cd proxy_attestation_server; \
-    git checkout v0.2.1; \
-    go build -o ./vts/vts -ldflags "-X 'github.com/veraison/services/config.SchemeLoader=builtin'" github.com/veraison/services/vts/cmd/vts-service; \
-    go build -o ./provisioning/provisioning -ldflags "-X 'github.com/veraison/services/config.SchemeLoader=builtin'" github.com/veraison/services/provisioning/cmd/provisioning-service; \
-    go build .; \
-    ls
-
-from ${DOCKER_ARCH}golang:1.19 AS corim_builder
-
-RUN set -eux; \
-    go install github.com/veraison/corim/cocli@latest
-
-COPY MyComidPsaIak.json /go/
-COPY corimMini.json /go/
-RUN pwd
-RUN cocli comid create --template MyComidPsaIak.json
-RUN cocli corim create -m MyComidPsaIak.cbor -t corimMini.json -o psa_corim.cbor
-RUN mkdir /opt/veraison/; \
-    mkdir /opt/veraison/vts; \
-    mkdir /opt/veraison/vts/plugins; \
-    mkdir /opt/veraison/provisioning; \
-    mkdir /opt/veraison/provisioning/plugins; \
-    mkdir ~/example/
-
-COPY --from=go_builder /go/proxy_attestation_server/vts /opt/veraison/vts/
-COPY --from=go_builder /go/proxy_attestation_server/provisioning /opt/veraison/provisioning/
-COPY --from=go_builder /go/proxy_attestation_server/proxy_attestation_server /opt/veraison/
-#COPY --from=corim_builder /go/psa_corim.cbor /opt/veraison/
-
-COPY vts_config.yaml /opt/veraison/vts/config.yaml
-COPY --from=go_builder /go/proxy_attestation_server/vts/skey.jwk /opt/veraison/vts/
-COPY provisioning_config.yaml /opt/veraison/provisioning/config.yaml
-
-
 FROM ubuntu:20.04
 
 ARG TARGETARCH
@@ -150,16 +107,6 @@ RUN cd ctoken \
 	&& install -m 644  inc/ctoken/ctoken* /usr/local/include/ctoken \
 	&& install -m 644 libctoken.a /usr/local/lib
 
-# Build attester MbedTLS
-RUN cd mbedtls \
-	&& make clean \
-	&& git reset --hard HEAD \
-	&& git remote add ionut https://github.com/ionut-arm/mbedtls.git \
-	&& git fetch ionut parsec-attestation  \
-	&& git checkout f4ac7593826a506fc509c83cad73786acab1d442 \
-	&& make CFLAGS="-DCTOKEN_LABEL_CNF=8 -DCTOKEN_TEMP_LABEL_KAK_PUB=2500" LDFLAGS="-lctoken -lt_cose -lqcbor -lm -lparsec_se_driver -lpthread -ldl" \
-	&& install -m 755 programs/ssl/ssl_client2 /usr/local/bin
-
 # Install Parsec tool
 RUN git clone -b attested-tls https://github.com/ionut-arm/parsec-tool.git \
 	&& cd parsec-tool \
@@ -176,7 +123,6 @@ RUN go install github.com/veraison/corim/cocli@rc0-v2.0.0
 
 # Introduce scripts
 COPY endorse.sh /root/
-COPY handshake.sh /root/
 COPY start.sh /root/
 
 # Introduced platform endorsement templates
@@ -185,7 +131,18 @@ COPY corim.json /root/
 
 WORKDIR /root/
 
+RUN mkdir -p ~/src ; \
+    git clone https://github.com/parallaxsecond/parsec-tool.git ~/src/parsec-tool; \
+    cd  ~/src/parsec-tool; \
+    git apply /1000-use-local-parsec-client.patch; \
+    rustup install stable; \
+    rustup default stable; \
+    cd ~/src/parsec-tool; \
+    cargo build; \
+    mkdir -p /tmp/dpu; \
+    cp ~/src/parsec-tool/target/debug/parsec-tool /tmp/dpu/parsec_app; \
+    rm -r ~/src/parsec-tool;
+
+
+
 CMD /root/start.sh
-
-
-
