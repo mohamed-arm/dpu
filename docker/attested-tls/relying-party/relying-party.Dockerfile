@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # TODO(paulhowardarm) - Some of the contents here are common with the attester Dockerfile, and we should look at
 # making either a common base image or a Docker include.
@@ -11,7 +11,7 @@ RUN apt install -y autoconf-archive libcmocka0 libcmocka-dev procps
 RUN apt install -y iproute2 build-essential git pkg-config gcc libtool automake libssl-dev uthash-dev doxygen libjson-c-dev
 RUN apt install -y --fix-missing wget python3 cmake clang
 RUN apt install -y libini-config-dev libcurl4-openssl-dev curl libgcc1
-RUN apt install -y python3-distutils libclang-6.0-dev protobuf-compiler python3-pip
+RUN apt install -y python3-distutils libclang-11-dev protobuf-compiler python3-pip
 RUN pip3 install Jinja2
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 WORKDIR /tmp

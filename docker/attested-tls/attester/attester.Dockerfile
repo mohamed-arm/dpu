@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ARG TARGETARCH
 ENV PKG_CONFIG_PATH /usr/local/lib/pkgconfig
@@ -12,7 +12,7 @@ RUN apt install -y libini-config-dev libcurl4-openssl-dev curl libgcc1
 RUN apt install -y python3-distutils libclang-12-dev protobuf-compiler python3-pip 
 RUN apt install -y openssl
 RUN pip3 install Jinja2
-RUN apt-get -y install tzdata
+RUN apt-get -y install tzdata sudo
 
 WORKDIR /tmp
 
@@ -27,7 +27,7 @@ RUN cd tpm2-tss \
 RUN rm -rf tpm2-tss
 
 # Download and install TPM 2.0 Tools verison 4.1.1
-RUN git clone https://github.com/tpm2-software/tpm2-tools.git --branch 4.1.1
+RUN git clone https://github.com/tpm2-software/tpm2-tools.git --branch 5.4
 RUN cd tpm2-tools \
 	&& ./bootstrap \
 	&& ./configure --prefix=/usr \
@@ -36,9 +36,9 @@ RUN cd tpm2-tools \
 RUN rm -rf tpm2-tools
 
 # Download and install software TPM
-ARG ibmtpm_name=ibmtpm1637
+ARG ibmtpm_name=ibmtpm1682
 RUN wget -L "https://downloads.sourceforge.net/project/ibmswtpm2/$ibmtpm_name.tar.gz"
-RUN sha256sum $ibmtpm_name.tar.gz | grep ^dd3a4c3f7724243bc9ebcd5c39bbf87b82c696d1c1241cb8e5883534f6e2e327
+#RUN sha256sum $ibmtpm_name.tar.gz | grep ^dd3a4c3f7724243bc9ebcd5c39bbf87b82c696d1c1241cb8e5883534f6e2e327
 RUN mkdir -p $ibmtpm_name \
 	&& tar -xvf $ibmtpm_name.tar.gz -C $ibmtpm_name \
 	&& chown -R root:root $ibmtpm_name \
@@ -52,8 +52,25 @@ RUN rm -rf $ibmtpm_name/src $ibmtpm_name
 WORKDIR /tmp
 
 # Install Rust toolchain
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:/opt/rust/bin:${PATH}"
+ENV RUSTUP_HOME=/usr/local/rustup \
+     CARGO_HOME=/usr/local/cargo \
+     PATH=/usr/local/cargo/bin:$PATH \
+     RUST_VERSION=1.70.0
+
+RUN set -eux; \
+     dpkgArch="$(dpkg --print-architecture)"; \
+     case "${dpkgArch##*-}" in \
+         amd64) rustArch='x86_64-unknown-linux-gnu'; rustupSha256='3dc5ef50861ee18657f9db2eeb7392f9c2a6c95c90ab41e45ab4ca71476b4338' ;; \
+         arm64) rustArch='aarch64-unknown-linux-gnu'; rustupSha256='32a1532f7cef072a667bac53f1a5542c99666c4071af0c9549795bbdb2069ec1' ;; \
+         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
+     esac; \
+     url="https://static.rust-lang.org/rustup/archive/1.24.3/${rustArch}/rustup-init"; \
+     wget "$url"; \
+     echo "${rustupSha256} *rustup-init" | sha256sum -c -; \
+     chmod +x rustup-init; \
+     ./rustup-init -y --no-modify-path --profile minimal --default-toolchain $RUST_VERSION --default-host ${rustArch}; \
+     rm rustup-init; \
+     rm -rf /usr/local/cargo/registry/*/github.com-* 
 
 # Install Parsec service
 RUN git clone -b attested-tls https://github.com/ionut-arm/parsec.git \
@@ -130,6 +147,7 @@ COPY comid-pcr.json /root/
 COPY corim.json /root/
 
 WORKDIR /root/
+ARG USER=mohnoo01
 
 RUN mkdir -p ~/src ; \
     git clone https://github.com/parallaxsecond/parsec-tool.git ~/src/parsec-tool; \
@@ -143,6 +161,16 @@ RUN mkdir -p ~/src ; \
     cp ~/src/parsec-tool/target/debug/parsec-tool /tmp/dpu/parsec_app; \
     rm -r ~/src/parsec-tool;
 
+ARG UID=0
+ENV CARGO_HOME="/home/$USER/.cargo" 
 
+RUN \
+    mkdir -p /work; \
+    if [ "$USER" != "root" ] ; then \
+         useradd -rm -d /home/$USER -s /bin/bash -g root -G sudo -u 1001 $USER ;\
+         echo "$USER ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USER && chmod 0440 /etc/sudoers.d/$USER ; \
+    fi
 
-CMD /root/start.sh
+USER $USER
+WORKDIR /home/$USER
+
