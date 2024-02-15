@@ -81,8 +81,6 @@ RUN git clone -b attested-tls https://github.com/ionut-arm/parsec.git \
 RUN mkdir /etc/parsec/
 COPY parsec-config.toml /etc/parsec/config.toml
 
-# At runtime, Parsec is configured with the socket in /tmp/
-ENV PARSEC_SERVICE_ENDPOINT="unix:/tmp/parsec.sock"
 
 # Install MbedTLS (used for building purposes)
 RUN git clone https://github.com/ARMmbed/mbedtls.git
@@ -135,16 +133,9 @@ RUN git clone -b attested-tls https://github.com/ionut-arm/parsec-tool.git \
 RUN wget -c https://go.dev/dl/go1.20.4.linux-arm64.tar.gz -O - | tar -xz -C /usr/local
 ENV PATH $PATH:/usr/local/go/bin:/root/go/bin
 
+
 # Install cocli
 RUN go install github.com/veraison/corim/cocli@rc0-v2.0.0
-
-# Introduce scripts
-COPY endorse.sh /root/
-COPY start.sh /root/
-
-# Introduced platform endorsement templates
-COPY comid-pcr.json /root/
-COPY corim.json /root/
 
 WORKDIR /root/
 ARG USER=mohnoo01
@@ -163,6 +154,9 @@ RUN mkdir -p ~/src ; \
 
 ARG UID=0
 ENV CARGO_HOME="/home/$USER/.cargo" 
+ENV PATH $PATH:/usr/local/go/bin:/root/go/bin
+# At runtime, Parsec is configured with the socket in /tmp/
+ENV PARSEC_SERVICE_ENDPOINT="unix:/tmp/parsec.sock"
 
 RUN \
     mkdir -p /work; \
@@ -172,5 +166,16 @@ RUN \
     fi
 
 USER $USER
+
+# Introduce scripts
+COPY endorse.sh /home/$USER
+COPY start.sh /home/$USER
+
+# Introduced platform endorsement templates
+COPY comid-pcr.json /home/$USER
+COPY corim.json /home/$USER
 WORKDIR /home/$USER
 
+
+
+CMD sudo /home/$USER/start.sh
