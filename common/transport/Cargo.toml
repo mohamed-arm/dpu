@@ -23,7 +23,9 @@ bincode = { version = "1.2.1", default-features = false }
 byteorder = { version = "1.4.3" }
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
 log = "0.4.13"
-mbedtls = { git = "https://github.com/gbryant-arm/rust-mbedtls", branch = "attested-tls", features = ["std", "aesni", "padlock", "tls13", "debug"] }
+#mbedtls = { git = "https://github.com/mohamed-arm/rust-mbedtls-.git", branch = "attested-tls-2", features = ["std", "aesni", "padlock", "tls13", "debug"] }
+#mbedtls-sys-auto = { git = "https://github.com/mohamed-arm/rust-mbedtls-", branch = "attested-tls-2" }
+mbedtls = { git = "https://github.com/gbryant-arm/rust-mbedtls.git", branch = "attested-tls", features = ["std", "aesni", "padlock", "tls13", "debug"] }
 mbedtls-sys-auto = { git = "https://github.com/gbryant-arm/rust-mbedtls", branch = "attested-tls" }
 serde = { version = "1.0", features = ["derive"] }
 uuid = { version = "1.4.1", features = ["serde"] }

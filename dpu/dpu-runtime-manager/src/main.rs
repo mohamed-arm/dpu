@@ -21,6 +21,7 @@ use lazy_static::lazy_static;
 use log::{debug, error, info};
 use transport::session::Session;
 use std::{net::TcpListener, sync::Mutex};
+use std::time::SystemTime;
 
 mod dpu_runtime;
 
@@ -139,8 +140,11 @@ pub fn dpu_main() -> Result<()> {
         })?;
         info!("Accepted connection from {:?}.", runtime_manager_socket);
 
+        let mut time = SystemTime::now();
+
         // Establish secure channel and save session to hashmap
         let session_id = Session::from_socket(runtime_manager_socket)?;
+        println!("===  {} [DPU-RM] from_socket ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time).unwrap());
 
         debug!("DPU Runtime Manager::main accept succeeded. Looping");
         loop {

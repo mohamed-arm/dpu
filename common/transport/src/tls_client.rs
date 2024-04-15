@@ -13,14 +13,33 @@ use parsec_se_driver::PARSEC_SE_DRIVER;
 use std::borrow::Cow;
 use std::sync::Arc;
 
+
+use std::time::SystemTime;
+
+macro_rules! PRINT_START {
+        ($var:ident) => { let $var = SystemTime::now(); }
+}
+
+macro_rules! PRINT_STOP {
+    ($x: expr, $y: expr) => {
+        println!("=== {} time for {} - ({:?}):",SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(), $x ,SystemTime::now().duration_since($y).unwrap() );
+    };
+   
+}
+
+
 pub fn generate_tls_client_config() -> Result<(Config, Box<key_handle_t>, Box<[u16; 3]>)> {
     // Register Parsec SE driver. Must be done before `psa_crypto_init()` triggered by `Config::new()`
     let location: key_location_t = 0x000001;
     let parsec_se_driver = unsafe { &PARSEC_SE_DRIVER as *const _ as *const drv_se_t };
     let ret;
+
+    PRINT_START!(time);
     unsafe {
         ret = register_se_driver(location, parsec_se_driver);
     }
+    PRINT_STOP!("register_se_driver",time);
+
     if ret == PSA_ERROR_ALREADY_EXISTS {
         info!("Couldn't register SE driver as it already exists. Ignoring");
     }
@@ -61,6 +80,7 @@ pub fn generate_tls_client_config() -> Result<(Config, Box<key_handle_t>, Box<[u
         TLS_ATTESTATION_TYPE_NONE as u16,
     ]);
 
+    PRINT_START!(time);
     // Generate PSA key
     // Warning: Mind the dangling pointers below, Rust won't catch them!
     let key_pair_id: key_id_t = 0xBEEF;
@@ -81,6 +101,7 @@ pub fn generate_tls_client_config() -> Result<(Config, Box<key_handle_t>, Box<[u
         }
         ssl_conf_client_rpk(config.get_mut_inner(), key_handle.as_mut());
     }
+    PRINT_STOP!("Generate PSA_KEY",time);
 
     Ok((config, key_handle, client_attestation_type_list))
 }
