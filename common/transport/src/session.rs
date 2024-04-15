@@ -15,6 +15,7 @@ use parsec_client::BasicClient;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use std::{collections::HashMap, net::TcpStream, fmt::Debug, sync::{Mutex, atomic::{AtomicU32, Ordering}, Arc}};
 
+use std::time::SystemTime;
 ////////////////////////////////////////////////////////////////////////////////
 // Various bits of persistent state.
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,18 +67,32 @@ impl Session {
         // TODO: Return session ID if session already exists
 
         // Connect to responder
+
+        let mut time = SystemTime::now();
         let socket = TcpStream::connect(responder_url)
             .map_err(|e| anyhow!("Could not connect to responder on {}: {}", responder_url, e))?;
+        println!("---+++ {}: time to TcpStream::connect ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time).unwrap());
+
         info!("Connected to responder on {}.", responder_url);
 
         info!("Initializing Veraison session...");
+        let mut time = SystemTime::now();
         tls_server::init_veraison_session("http://vfe:8080", 8);
+        println!("---+++ {}: time to init_veraison_session  ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time).unwrap());
 
         info!("Establishing TLS server context...");
+        let mut time = SystemTime::now();
+        let mut time_refined = SystemTime::now();
         let config = tls_server::generate_tls_server_config()?;
+        println!("---==== {}: time to TLS server - generate_tls_server_config  ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time_refined).unwrap());
+        let mut time_refined = SystemTime::now();
         let mut tls_context = Context::new(Arc::new(config));
+        println!("---==== {}: time to TLS server - Context::new ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time_refined).unwrap());
+        let mut time_refined = SystemTime::now();
         tls_context.establish(socket, None)?;
+        println!("---==== {}: time to TLS server - tls_context.establish ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time_refined).unwrap());
         info!("TLS server context established");
+        println!("---+++ {}: time to TLS server ({:?}):", SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros(),  SystemTime::now().duration_since(time).unwrap());
 
         // Add session to hashmap
         let session_id = SESSION_COUNTER.fetch_add(1, Ordering::SeqCst);
